@@ -1,8 +1,7 @@
 package com.example.encurtador_link.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 import java.util.UUID;
@@ -12,12 +11,14 @@ import java.util.UUID;
 public class Url {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String original_url;
 
     private String hash;
 
+    @CreationTimestamp
     private Date createdAt;
 
     public Url(UUID id, String original_url, String hash, Date createdAt) {
