@@ -18,7 +18,7 @@ public class UrlController {
     }
     @PostMapping()
     public ResponseEntity<Url> createShortenedUrl(@RequestBody Url url) {
-        Url createdUrl = urlService.createUrl(url);
+        Url createdUrl = urlService.updateUrlWithShortenedUrl(url);
         return ResponseEntity.status(201).body(createdUrl);
     }
 }

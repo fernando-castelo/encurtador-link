@@ -11,31 +11,31 @@ import java.util.UUID;
 public class Url {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String original_url;
 
-    private String hash;
+    private String shortened_url;
 
     @CreationTimestamp
     private Date createdAt;
 
-    public Url(UUID id, String original_url, String hash, Date createdAt) {
+    public Url(Long id, String original_url, String shortened_url, Date createdAt) {
         this.id = id;
         this.original_url = original_url;
-        this.hash = hash;
+        this.shortened_url = shortened_url;
         this.createdAt = createdAt;
     }
 
     public Url() {
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -47,12 +47,12 @@ public class Url {
         this.original_url = original_url;
     }
 
-    public String getHash() {
-        return hash;
+    public String getShortened_url() {
+        return shortened_url;
     }
 
-    public void setHash(String hash) {
-        this.hash = hash;
+    public void setShortened_url(String shortened_url) {
+        this.shortened_url = shortened_url;
     }
 
     public Date getCreatedAt() {
