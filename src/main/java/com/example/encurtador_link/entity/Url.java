@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
-import java.util.UUID;
+import java.util.List;
 
 @Entity
 @Table(name= "url")
@@ -21,11 +21,15 @@ public class Url {
     @CreationTimestamp
     private Date createdAt;
 
-    public Url(Long id, String original_url, String shortened_url, Date createdAt) {
+    @OneToMany(mappedBy = "url", cascade = CascadeType.ALL)
+    private List<DailyAccess> dailyAccessList;
+
+    public Url(Long id, String original_url, String shortened_url, Date createdAt, List<DailyAccess> dailyAccessList) {
         this.id = id;
         this.original_url = original_url;
         this.shortened_url = shortened_url;
         this.createdAt = createdAt;
+        this.dailyAccessList = dailyAccessList;
     }
 
     public Url() {
@@ -35,7 +39,7 @@ public class Url {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -61,5 +65,13 @@ public class Url {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<DailyAccess> getDailyAccessList() {
+        return dailyAccessList;
+    }
+
+    public void setDailyAccessList(List<DailyAccess> dailyAccessList) {
+        this.dailyAccessList = dailyAccessList;
     }
 }
