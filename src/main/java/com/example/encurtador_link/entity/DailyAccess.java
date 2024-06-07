@@ -21,7 +21,7 @@ public class DailyAccess {
 
 
     public DailyAccess() {
-        this.date = LocalDate.now();
+        this.date = LocalDate.now().plusDays(0);
         this.accessCount = 0;
     }
 

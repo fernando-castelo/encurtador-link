@@ -21,6 +21,12 @@ public class UrlController {
         this.urlService = urlService;
         this.dailyAccessService = dailyAccessService;
     }
+    @GetMapping("/{shortenedUrl}")
+    public ResponseEntity<StatisticsDto> getUrlStatistics(@PathVariable String shortenedUrl) {
+        StatisticsDto statisticsDto = urlService.getUrlStatistics(shortenedUrl);
+        return ResponseEntity.status(200).body(statisticsDto);
+    }
+
 
     @PostMapping("/redirect")
     public ResponseEntity<Void> getOriginalUrlPost(@RequestBody UrlRequestDto urlRequestDto) {
@@ -35,5 +41,6 @@ public class UrlController {
         Url createdUrl = urlService.updateUrlWithShortenedUrl(url);
         return ResponseEntity.status(201).body(createdUrl);
     }
+
 
 }
