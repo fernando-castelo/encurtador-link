@@ -15,4 +15,12 @@ public class BaseConversion {
         return sb.reverse().toString();
     }
 
+    public Long decode(String str) {
+        long num = 0;
+        for (int i = 0; i < str.length(); i++) {
+            num = num * 62 + BASE62.indexOf(str.charAt(i));
+        }
+        return num;
+    }
+
 }
