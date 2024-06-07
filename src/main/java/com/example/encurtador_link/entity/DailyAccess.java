@@ -25,6 +25,13 @@ public class DailyAccess {
         this.accessCount = 0;
     }
 
+    public DailyAccess(Long id, LocalDate date, int accessCount, Url url) {
+        this.id = id;
+        this.date = date;
+        this.accessCount = accessCount;
+        this.url = url;
+    }
+
     public Long getId() {
         return id;
     }

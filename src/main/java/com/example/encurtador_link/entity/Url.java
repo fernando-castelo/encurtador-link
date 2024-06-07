@@ -32,6 +32,10 @@ public class Url {
         this.dailyAccessList = dailyAccessList;
     }
 
+    public Url(String original_url) {
+        this.original_url = original_url;
+    }
+
     public Url() {
     }
 

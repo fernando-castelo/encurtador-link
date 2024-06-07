@@ -6,6 +6,8 @@ import com.example.encurtador_link.entity.Url;
 import com.example.encurtador_link.repository.DailyAccessRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -68,7 +70,11 @@ public class DailyAccessService {
 
         int numberOfDays = dailyAccessList.size();
 
-        return (double) totalAccessCount / numberOfDays;
+        BigDecimal totalAccessCountBigDecimal = BigDecimal.valueOf(totalAccessCount);
+        BigDecimal numberOfDaysBigDecimal = BigDecimal.valueOf(numberOfDays);
+        BigDecimal averageBigDecimal = totalAccessCountBigDecimal.divide(numberOfDaysBigDecimal, 2, RoundingMode.HALF_UP);
+
+        return averageBigDecimal.doubleValue();
 
    }
 }
