@@ -1,9 +1,6 @@
 package com.example.encurtador_link.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -11,7 +8,8 @@ import java.time.LocalDate;
 public class DailyAccess {
 
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private LocalDate date;
 
@@ -27,11 +25,11 @@ public class DailyAccess {
         this.accessCount = 0;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

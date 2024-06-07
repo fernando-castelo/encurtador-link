@@ -71,7 +71,7 @@ public class Url {
         return dailyAccessList;
     }
 
-    public void setDailyAccessList(List<DailyAccess> dailyAccessList) {
-        this.dailyAccessList = dailyAccessList;
+    public void addDailyAcess(DailyAccess dailyAccess) {
+        this.dailyAccessList.add(dailyAccess);
     }
 }

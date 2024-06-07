@@ -1,5 +1,6 @@
 package com.example.encurtador_link.service;
 
+import com.example.encurtador_link.entity.DailyAccess;
 import com.example.encurtador_link.entity.Url;
 import com.example.encurtador_link.repository.UrlRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -12,10 +13,12 @@ public class UrlService {
     private static final String BASE_URL = "www.encurtadortds/";
     private final UrlRepository urlRepository;
     private final BaseConversion baseConversion;
+    private final DailyAccessService dailyAccessService;
 
-    public UrlService(UrlRepository urlRepository, BaseConversion baseConversion) {
+    public UrlService(UrlRepository urlRepository, BaseConversion baseConversion, DailyAccessService dailyAccessService) {
         this.urlRepository = urlRepository;
         this.baseConversion = baseConversion;
+        this.dailyAccessService = dailyAccessService;
     }
 
     public Url createUrl(Url url) {
@@ -36,9 +39,11 @@ public class UrlService {
     public String getOriginalUrl(String url) {
         String base62Code = extractBase62Code(url);
         Long urlId = decodeUrl(base62Code);
-        return urlRepository.findById(urlId)
-                .orElseThrow(() -> new EntityNotFoundException("Entity not found with url: " + url))
-                .getOriginal_url();
+        Url queriedUrl = urlRepository.findById(urlId)
+                                      .orElseThrow(() -> new EntityNotFoundException("Entity not found with url: " + url));
+
+        dailyAccessService.handleDailyAccessEntryCreation(queriedUrl);
+        return queriedUrl.getOriginal_url();
     }
 
     private String extractBase62Code(String url) {
@@ -48,4 +53,5 @@ public class UrlService {
     public Long decodeUrl(String url) {
         return baseConversion.decode(url);
     }
+
 }

@@ -1,7 +1,9 @@
 package com.example.encurtador_link.controller;
 
 import com.example.encurtador_link.dto.UrlRequestDto;
+import com.example.encurtador_link.entity.DailyAccess;
 import com.example.encurtador_link.entity.Url;
+import com.example.encurtador_link.service.DailyAccessService;
 import com.example.encurtador_link.service.UrlService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +16,10 @@ import java.net.URI;
 public class UrlController {
 
     private final UrlService urlService;
-    public UrlController(UrlService urlService) {
+    private final DailyAccessService dailyAccessService;
+    public UrlController(UrlService urlService, DailyAccessService dailyAccessService) {
         this.urlService = urlService;
+        this.dailyAccessService = dailyAccessService;
     }
 
     @PostMapping("/redirect")
@@ -25,6 +29,7 @@ public class UrlController {
                 .location(URI.create(original))
                 .build();
     }
+
     @PostMapping()
     public ResponseEntity<Url> createShortenedUrl(@RequestBody Url url) {
         Url createdUrl = urlService.updateUrlWithShortenedUrl(url);
